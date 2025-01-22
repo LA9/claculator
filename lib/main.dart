@@ -1,3 +1,4 @@
+
 import 'package:calculator/colors/CustomColors.dart';
 import 'package:flutter/material.dart';
 
@@ -26,17 +27,48 @@ class CalculatorAppHome extends StatefulWidget {
 
 class _CalculatorAppHomeState extends State<CalculatorAppHome> {
 
-  Widget calButtons(){
-    return  Container(
-        alignment: Alignment.center,
-        height:50,
-        width:50,
-        decoration:BoxDecoration(
-          color:CustomColors.ornage,
-          borderRadius:BorderRadius.circular(50)
-        ),
-        child:Text("AC",style:TextStyle(color:Colors.white , fontSize:30))
-       );
+  String equation = "0";
+  String result = "4";
+  String expression = "";
+
+  buttonPressed(btnText){
+
+    if(btnText == "AC"){
+      equation = "0";
+      result = "0";
+    }else if(btnText == "⌫"){
+      equation = equation.substring(0,equation.length-1);
+      if(equation == ""){
+        equation = "0";
+      }
+    }else if(btnText == "="){
+
+    }else{
+      if(equation == "0"){
+        equation = btnText;
+      }else{
+        equation = equation + btnText;
+      }
+    }
+  }
+
+  Widget calButton(String btnText,Color textColor,double btnWidth, Color btnColor){
+    return  InkWell(
+      onTap:(){
+        buttonPressed(btnText);
+
+      },
+      child: Container(
+          alignment: Alignment.center,
+          height:50,
+          width:btnWidth,
+          decoration:BoxDecoration(
+            color: btnColor,
+            borderRadius:BorderRadius.circular(50)
+          ),
+          child:Text(btnText,style:TextStyle(color:textColor , fontSize:30))
+         ),
+    );
   }
 
   @override
@@ -59,7 +91,7 @@ class _CalculatorAppHomeState extends State<CalculatorAppHome> {
         height:60,
         width:double.infinity,
         color:const Color.fromARGB(255, 129, 129, 129),
-        child:Text("0",style:TextStyle(color:Colors.white , fontSize:30))
+        child:Text(equation,style:TextStyle(color:Colors.white , fontSize:30))
        ),
           SizedBox(height:10),
 
@@ -69,14 +101,67 @@ class _CalculatorAppHomeState extends State<CalculatorAppHome> {
         height:60,
         width:double.infinity,
         color:const Color.fromARGB(255, 129, 129, 129),
-        child:Text("0",style:TextStyle(color:Colors.white , fontSize:30))
+        child:Text(result,style:TextStyle(color:Colors.white , fontSize:30))
        ),
 
-Row(
-  children: [
- 
+Padding(
+  padding: const EdgeInsets.all(20.0),
+  child: Column(
+    children: [
+      Row(
 
-  ]
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          calButton("AC", Colors.white, 60, CustomColors.ornage),
+          calButton("⌫", Colors.white, 60, Colors.lightBlue),
+          calButton("%", Colors.white, 60, Colors.lightBlue),
+          calButton("/", Colors.white, 60, Colors.lightBlue),
+      
+        ]
+      ),
+    SizedBox(height:20),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          calButton("7", Colors.white, 60, Colors.deepOrangeAccent),
+          calButton("8", Colors.white, 60, CustomColors.ornage),
+          calButton("9", Colors.white, 60, CustomColors.ornage),
+          calButton("*", Colors.white, 60, Colors.lightBlue),
+        ]
+      ),
+      SizedBox(height:20),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          calButton("4", Colors.white, 60, CustomColors.ornage),
+          calButton("5", Colors.white, 60, CustomColors.ornage),
+          calButton("6", Colors.white, 60, CustomColors.ornage),
+          calButton("-", Colors.white, 60, Colors.lightBlue),
+        ]
+      ),
+      SizedBox(height:20),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          calButton("1", Colors.white, 60, CustomColors.ornage),
+          calButton("2", Colors.white, 60, CustomColors.ornage),
+          calButton("3", Colors.white, 60, CustomColors.ornage),
+          calButton("+", Colors.white, 60, Colors.lightBlue),
+        ]
+      ),
+      SizedBox(height:20),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          calButton("0", Colors.white, 60, CustomColors.ornage),
+          calButton(".", Colors.white, 60, CustomColors.ornage),
+          calButton("00", Colors.white, 60, CustomColors.ornage),
+          calButton("=", Colors.white, 60, Colors.lightBlue),
+        ]
+      ),
+    
+    ],
+  ),
 )
        ]
      ),
