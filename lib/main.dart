@@ -1,6 +1,7 @@
 
 import 'package:calculator/colors/CustomColors.dart';
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 void main() {
   runApp(CalculatorApp());
@@ -33,7 +34,8 @@ class _CalculatorAppHomeState extends State<CalculatorAppHome> {
 
   buttonPressed(btnText){
 
-    if(btnText == "AC"){
+setState(() {
+      if (btnText == "AC") {
       equation = "0";
       result = "0";
     }else if(btnText == "⌫"){
@@ -43,6 +45,19 @@ class _CalculatorAppHomeState extends State<CalculatorAppHome> {
       }
     }else if(btnText == "="){
 
+expression = equation;
+expression = expression.replaceAll("x", "*");
+expression = expression.replaceAll("÷", "/");
+print(expression);
+
+        try {
+          Parser p = Parser();
+          Expression exp = p.parse(expression);
+          result = '${exp.evaluate(EvaluationType.REAL, ContextModel())}';
+        } catch (e) {
+          "Error";
+        }
+
     }else{
       if(equation == "0"){
         equation = btnText;
@@ -50,6 +65,9 @@ class _CalculatorAppHomeState extends State<CalculatorAppHome> {
         equation = equation + btnText;
       }
     }
+});
+
+    
   }
 
   Widget calButton(String btnText,Color textColor,double btnWidth, Color btnColor){
@@ -91,7 +109,7 @@ class _CalculatorAppHomeState extends State<CalculatorAppHome> {
         height:60,
         width:double.infinity,
         color:const Color.fromARGB(255, 129, 129, 129),
-        child:Text(equation,style:TextStyle(color:Colors.white , fontSize:30))
+        child:SingleChildScrollView(child:Text(equation,style:TextStyle(color:Colors.white , fontSize:30)))
        ),
           SizedBox(height:10),
 
@@ -115,7 +133,7 @@ Padding(
           calButton("AC", Colors.white, 60, CustomColors.ornage),
           calButton("⌫", Colors.white, 60, Colors.lightBlue),
           calButton("%", Colors.white, 60, Colors.lightBlue),
-          calButton("/", Colors.white, 60, Colors.lightBlue),
+          calButton("÷", Colors.white, 60, Colors.lightBlue),
       
         ]
       ),
@@ -126,7 +144,7 @@ Padding(
           calButton("7", Colors.white, 60, Colors.deepOrangeAccent),
           calButton("8", Colors.white, 60, CustomColors.ornage),
           calButton("9", Colors.white, 60, CustomColors.ornage),
-          calButton("*", Colors.white, 60, Colors.lightBlue),
+          calButton("x", Colors.white, 60, Colors.lightBlue),
         ]
       ),
       SizedBox(height:20),
