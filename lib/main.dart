@@ -1,5 +1,4 @@
 
-import 'package:calculator/colors/CustomColors.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 
@@ -12,6 +11,7 @@ class CalculatorApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: CalculatorAppHome(),
@@ -29,7 +29,7 @@ class CalculatorAppHome extends StatefulWidget {
 class _CalculatorAppHomeState extends State<CalculatorAppHome> {
 
   String equation = "0";
-  String result = "4";
+  String result = "0";
   String expression = "";
 
   buttonPressed(btnText){
@@ -48,7 +48,6 @@ setState(() {
 expression = equation;
 expression = expression.replaceAll("x", "*");
 expression = expression.replaceAll("÷", "/");
-print(expression);
 
         try {
           Parser p = Parser();
@@ -62,7 +61,22 @@ print(expression);
       if(equation == "0"){
         equation = btnText;
       }else{
+        final isOperator = btnText[0] == "x" || btnText[0] == "÷" || btnText[0] == "/" || btnText[0] == "-" || btnText[0] == "+" || btnText[0] == "x";
+final isEqualToFirst = btnText == btnText[0];
+
+        if(isEqualToFirst && isOperator){
+  RegExp regex = RegExp(r'(\d+)\s*[\+\-\*\/]\s*(\d+)$');
+   if(regex.hasMatch(btnText)){
+        equation = "$equation$btnText";
+
+   }else{
+        equation = "$equation $btnText ";
+   }
+        }else{
         equation = equation + btnText;
+
+        }
+
       }
     }
 });
@@ -70,7 +84,7 @@ print(expression);
     
   }
 
-  Widget calButton(String btnText,Color textColor,double btnWidth, Color btnColor){
+  Widget calButton(String btnText,Color textColor,double textFontSize){
     return  InkWell(
       onTap:(){
         buttonPressed(btnText);
@@ -78,13 +92,13 @@ print(expression);
       },
       child: Container(
           alignment: Alignment.center,
-          height:50,
-          width:btnWidth,
+          height:65,
+          width:65,
           decoration:BoxDecoration(
-            color: btnColor,
-            borderRadius:BorderRadius.circular(50)
+            color: const Color.fromARGB(66, 22, 22, 22),
+            borderRadius:BorderRadius.circular(10)
           ),
-          child:Text(btnText,style:TextStyle(color:textColor , fontSize:30))
+          child:Text(btnText,style:TextStyle(color:textColor , fontSize:textFontSize , fontWeight: FontWeight.w600))
          ),
     );
   }
@@ -92,89 +106,97 @@ print(expression);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 82, 82, 82),
+      backgroundColor: const Color.fromARGB(255, 26, 26, 26),
       appBar: AppBar(
-        title: Text("Calculator" ,style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),),
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 21, 53, 110),
+        backgroundColor: const Color.fromARGB(255, 26, 26, 26),
       ),
 
      body:Column(
        children: [
-          SizedBox(height:10),
+          SizedBox(height:51),
 
        Container(
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        height:60,
+        height:40,
         width:double.infinity,
-        color:const Color.fromARGB(255, 129, 129, 129),
-        child:SingleChildScrollView(child:Text(equation,style:TextStyle(color:Colors.white , fontSize:30)))
+        color:const Color.fromARGB(255, 26, 26, 26),
+        child:SingleChildScrollView(child:Text(equation,style:TextStyle(color:Colors.white , fontSize:30, fontWeight: FontWeight.bold)))
        ),
-          SizedBox(height:10),
 
        Container(
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        height:60,
+        height:80,
         width:double.infinity,
-        color:const Color.fromARGB(255, 129, 129, 129),
-        child:Text(result,style:TextStyle(color:Colors.white , fontSize:30))
+        color:const Color.fromARGB(255, 26, 26, 26),
+        child:Text(result,style:TextStyle(color:Colors.white , fontSize:70 , fontWeight: FontWeight.bold))
+    ,
+       
        ),
+    SizedBox(height:37),
 
-Padding(
-  padding: const EdgeInsets.all(20.0),
+Container(
+        //create radius border
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(255, 37, 37, 37),
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(30),
+            ),
+        ),
+  padding: const EdgeInsets.all(35.0),
   child: Column(
     children: [
       Row(
 
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        spacing: 25,
+
         children: [
-          calButton("AC", Colors.white, 60, CustomColors.ornage),
-          calButton("⌫", Colors.white, 60, Colors.lightBlue),
-          calButton("%", Colors.white, 60, Colors.lightBlue),
-          calButton("÷", Colors.white, 60, Colors.lightBlue),
+          calButton("AC", Colors.lightGreenAccent,25),
+          calButton("⌫", Colors.lightGreenAccent,25),
+          calButton("%", Colors.lightGreenAccent,25),
+          calButton("÷", Colors.redAccent,30),
       
         ]
       ),
-    SizedBox(height:20),
+    SizedBox(height:12),
       Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+         spacing: 25,
         children: [
-          calButton("7", Colors.white, 60, Colors.deepOrangeAccent),
-          calButton("8", Colors.white, 60, CustomColors.ornage),
-          calButton("9", Colors.white, 60, CustomColors.ornage),
-          calButton("x", Colors.white, 60, Colors.lightBlue),
+          calButton("7", Colors.white,25),
+          calButton("8", Colors.white,25),
+          calButton("9", Colors.white,25),
+          calButton("x", Colors.redAccent,30),
         ]
       ),
-      SizedBox(height:20),
+      SizedBox(height:12),
       Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+         spacing: 25,
         children: [
-          calButton("4", Colors.white, 60, CustomColors.ornage),
-          calButton("5", Colors.white, 60, CustomColors.ornage),
-          calButton("6", Colors.white, 60, CustomColors.ornage),
-          calButton("-", Colors.white, 60, Colors.lightBlue),
+          calButton("4", Colors.white,25),
+          calButton("5", Colors.white,25),
+          calButton("6", Colors.white,25),
+          calButton("-", Colors.redAccent,30),
         ]
       ),
-      SizedBox(height:20),
+      SizedBox(height:12),
       Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+         spacing: 25,
         children: [
-          calButton("1", Colors.white, 60, CustomColors.ornage),
-          calButton("2", Colors.white, 60, CustomColors.ornage),
-          calButton("3", Colors.white, 60, CustomColors.ornage),
-          calButton("+", Colors.white, 60, Colors.lightBlue),
+          calButton("1", Colors.white,25),
+          calButton("2", Colors.white,25),
+          calButton("3", Colors.white,25),
+          calButton("+", Colors.redAccent,30),
         ]
       ),
-      SizedBox(height:20),
+      SizedBox(height:12),
       Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+         spacing: 25,
         children: [
-          calButton("0", Colors.white, 60, CustomColors.ornage),
-          calButton(".", Colors.white, 60, CustomColors.ornage),
-          calButton("00", Colors.white, 60, CustomColors.ornage),
-          calButton("=", Colors.white, 60, Colors.lightBlue),
+          calButton("0", Colors.white,25),
+          calButton(".", Colors.white,25),
+          calButton("00", Colors.white,25),
+          calButton("=", Colors.redAccent,30),
         ]
       ),
     
