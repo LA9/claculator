@@ -1,4 +1,5 @@
 
+import 'package:calculator/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 
@@ -56,7 +57,6 @@ expression = expression.replaceAll("÷", "/");
         } catch (e) {
           "Error";
         }
-
     }else{
       if(equation == "0"){
         equation = btnText;
@@ -106,9 +106,9 @@ final isEqualToFirst = btnText == btnText[0];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 26, 26, 26),
+      backgroundColor:appBackgroundColor,
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 26, 26, 26),
+        backgroundColor: appBackgroundColor,
       ),
 
      body:Column(
@@ -120,7 +120,7 @@ final isEqualToFirst = btnText == btnText[0];
         padding: const EdgeInsets.symmetric(horizontal: 10),
         height:40,
         width:double.infinity,
-        color:const Color.fromARGB(255, 26, 26, 26),
+        color:appBackgroundColor,
         child:SingleChildScrollView(child:Text(equation,style:TextStyle(color:Colors.white , fontSize:30, fontWeight: FontWeight.bold)))
        ),
 
@@ -129,7 +129,7 @@ final isEqualToFirst = btnText == btnText[0];
         padding: const EdgeInsets.symmetric(horizontal: 10),
         height:80,
         width:double.infinity,
-        color:const Color.fromARGB(255, 26, 26, 26),
+        color:appBackgroundColor,
         child:Text(result,style:TextStyle(color:Colors.white , fontSize:70 , fontWeight: FontWeight.bold))
     ,
        
@@ -149,54 +149,54 @@ Container(
     children: [
       Row(
 
-        spacing: 25,
+        spacing: spacingBetweenButtonsInRows,
 
         children: [
-          calButton("AC", Colors.lightGreenAccent,25),
-          calButton("⌫", Colors.lightGreenAccent,25),
-          calButton("%", Colors.lightGreenAccent,25),
-          calButton("÷", Colors.redAccent,30),
+          calButton("AC", Colors.lightGreenAccent,btnOperatorFontSize),
+          calButton("⌫", Colors.lightGreenAccent,btnOperatorFontSize),
+          calButton("%", Colors.lightGreenAccent,btnOperatorFontSize),
+          calButton("÷", Colors.redAccent,btnOperatorFontSize),
       
         ]
       ),
-    SizedBox(height:12),
+    SizedBox(height:spacingBetweenButtonsInColumn),
       Row(
-         spacing: 25,
+         spacing: spacingBetweenButtonsInRows,
         children: [
-          calButton("7", Colors.white,25),
-          calButton("8", Colors.white,25),
-          calButton("9", Colors.white,25),
-          calButton("x", Colors.redAccent,30),
+          calButton("7", btnNumbersColor,btnNumbersFontSize),
+          calButton("8", btnNumbersColor,btnNumbersFontSize),
+          calButton("9", btnNumbersColor,btnNumbersFontSize),
+          calButton("x", Colors.redAccent,btnOperatorFontSize),
         ]
       ),
-      SizedBox(height:12),
+      SizedBox(height:spacingBetweenButtonsInColumn),
       Row(
-         spacing: 25,
+         spacing: spacingBetweenButtonsInRows,
         children: [
-          calButton("4", Colors.white,25),
-          calButton("5", Colors.white,25),
-          calButton("6", Colors.white,25),
-          calButton("-", Colors.redAccent,30),
+          calButton("4", btnNumbersColor,btnNumbersFontSize),
+          calButton("5", btnNumbersColor,btnNumbersFontSize),
+          calButton("6", btnNumbersColor,btnNumbersFontSize),
+          calButton("-", Colors.redAccent,btnOperatorFontSize),
         ]
       ),
-      SizedBox(height:12),
+      SizedBox(height:spacingBetweenButtonsInColumn),
       Row(
-         spacing: 25,
+         spacing: spacingBetweenButtonsInRows,
         children: [
-          calButton("1", Colors.white,25),
-          calButton("2", Colors.white,25),
-          calButton("3", Colors.white,25),
-          calButton("+", Colors.redAccent,30),
+          calButton("1", btnNumbersColor,btnNumbersFontSize),
+          calButton("2", btnNumbersColor,btnNumbersFontSize),
+          calButton("3", btnNumbersColor,btnNumbersFontSize),
+          calButton("+", Colors.redAccent,btnOperatorFontSize),
         ]
       ),
-      SizedBox(height:12),
+      SizedBox(height:spacingBetweenButtonsInColumn),
       Row(
-         spacing: 25,
+         spacing: spacingBetweenButtonsInRows,
         children: [
-          calButton("0", Colors.white,25),
-          calButton(".", Colors.white,25),
-          calButton("00", Colors.white,25),
-          calButton("=", Colors.redAccent,30),
+          calButton("0", btnNumbersColor,btnNumbersFontSize),
+          calButton(".", btnNumbersColor,btnNumbersFontSize),
+          calButton("00", btnNumbersColor,btnNumbersFontSize),
+          calButton("=", Colors.redAccent,btnOperatorFontSize),
         ]
       ),
     
