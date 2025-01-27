@@ -123,7 +123,7 @@ final isEqualToFirst = btnText == btnText[0];
         height:40,
         width:double.infinity,
         color:appBackgroundColor,
-        child:SingleChildScrollView(child:Text(equation,style:TextStyle(color:Colors.white , fontSize:30, fontWeight: FontWeight.bold)))
+        child:SingleChildScrollView(child:Text(equation,style:TextStyle(color:inputsTextColor , fontSize:30, fontWeight: FontWeight.bold)))
        ),
 
        Container(
@@ -132,7 +132,7 @@ final isEqualToFirst = btnText == btnText[0];
         height:80,
         width:double.infinity,
         color:appBackgroundColor,
-        child:Text(result,style:TextStyle(color:Colors.white , fontSize:70 , fontWeight: FontWeight.bold))
+        child:Text(result,style:TextStyle(color:inputsTextColor , fontSize:70 , fontWeight: FontWeight.bold))
     ,
        
        ),
