@@ -20,6 +20,8 @@ class CalculatorApp extends StatelessWidget {
   }
 }
 
+
+
 class CalculatorAppHome extends StatefulWidget {
   const CalculatorAppHome({super.key});
 
@@ -113,7 +115,7 @@ final isEqualToFirst = btnText == btnText[0];
 
      body:Column(
        children: [
-          SizedBox(height:51),
+          SizedBox(height:40),
 
        Container(
         alignment: Alignment.centerRight,
@@ -199,8 +201,10 @@ Container(
           calButton("=", Colors.redAccent,btnOperatorFontSize),
         ]
       ),
+      SizedBox(height:10),
     
     ],
+
   ),
 )
        ]
